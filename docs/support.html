@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — SwipeSweep</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #111;
+      --card: #1c1c1c;
+      --border: rgba(255,255,255,0.08);
+      --text: #fff;
+      --sub: rgba(255,255,255,0.4);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: up 0.35s ease 0s forwards;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+    }
+
+    .icon-box {
+      width: 30px; height: 30px;
+      background: #fff;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+    }
+
+    .icon-box svg { width: 16px; height: 16px; }
+
+    .nav-name { font-size: 0.9rem; font-weight: 600; color: #fff; }
+
+    .nav-link { font-size: 0.82rem; color: var(--sub); text-decoration: none; transition: color 0.2s; }
+    .nav-link:hover { color: #fff; }
+
+    .header {
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: up 0.35s ease 0.06s forwards;
+    }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 11px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--sub);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .subtitle { font-size: 0.88rem; color: var(--sub); line-height: 1.5; }
+
+    /* gesture cards */
+    .gestures {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: up 0.35s ease 0.1s forwards;
+    }
+
+    .gesture-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 14px;
+    }
+
+    .gesture-icon {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .gesture-card h3 { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+    .gesture-card p  { font-size: 0.76rem; color: var(--sub); line-height: 1.5; margin: 0; }
+
+    /* FAQ */
+    .section {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      opacity: 0;
+      animation: up 0.35s ease both forwards;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.13s; }
+    .section:nth-child(2) { animation-delay: 0.16s; }
+    .section:nth-child(3) { animation-delay: 0.19s; }
+    .section:nth-child(4) { animation-delay: 0.22s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+    .section:nth-child(6) { animation-delay: 0.28s; }
+
+    h2 { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; }
+
+    p {
+      font-size: 0.86rem;
+      color: var(--sub);
+      line-height: 1.7;
+    }
+
+    a { color: #fff; }
+
+    /* contact */
+    .contact-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 32px;
+      opacity: 0;
+      animation: up 0.35s ease 0.32s forwards;
+    }
+
+    .contact-card h2 { font-size: 0.92rem; font-weight: 600; color: #111; margin-bottom: 6px; }
+    .contact-card p  { font-size: 0.86rem; color: rgba(0,0,0,0.5); line-height: 1.6; margin-bottom: 16px; }
+
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #111;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 11px 20px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .email-btn:hover { opacity: 0.8; }
+    .email-btn svg { width: 14px; height: 14px; }
+
+    footer {
+      margin-top: 44px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      opacity: 0;
+      animation: up 0.35s ease 0.36s forwards;
+    }
+
+    footer span, footer a {
+      font-size: 0.78rem;
+      color: var(--sub);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: #fff; }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="icon-box">
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 9.5 L8 4.5 L13 9.5" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 13 L8 8 L13 13" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+        </svg>
+      </div>
+      <span class="nav-name">SwipeSweep</span>
+    </a>
+    <a href="privacy.html" class="nav-link">Privacy →</a>
+  </nav>
+
+  <div class="header">
+    <span class="tag">Help</span>
+    <h1>Support</h1>
+    <p class="subtitle">Common questions about SwipeSweep.</p>
+  </div>
+
+  <div class="gestures">
+    <div class="gesture-card">
+      <span class="gesture-icon">←</span>
+      <h3>Archive</h3>
+      <p>Moves photo to Recently Deleted</p>
+    </div>
+    <div class="gesture-card">
+      <span class="gesture-icon">→</span>
+      <h3>Keep</h3>
+      <p>Stays in your library</p>
+    </div>
+    <div class="gesture-card">
+      <span class="gesture-icon">↩</span>
+      <h3>Undo</h3>
+      <p>Reverses your last decision</p>
+    </div>
+  </div>
+
+  <div class="faq">
+
+    <div class="section">
+      <h2>Does SwipeSweep permanently delete my photos?</h2>
+      <p>No. Swiping left moves photos to your iPhone's Recently Deleted album, which keeps them for 30 days. You can recover any photo from the Photos app during that window.</p>
+    </div>
+
+    <div class="section">
+      <h2>Why does SwipeSweep need photo access?</h2>
+      <p>To display your photos and move the ones you discard to Recently Deleted. Photos are never uploaded or transmitted — all processing is on your device.</p>
+    </div>
+
+    <div class="section">
+      <h2>I denied photo access. How do I fix it?</h2>
+      <p>Open Settings → SwipeSweep → Photos → Full Access. Return to the app and it'll load automatically.</p>
+    </div>
+
+    <div class="section">
+      <h2>Can I undo after moving to the next photo?</h2>
+      <p>Yes. Tap the undo button at any time to reverse your most recent decision. You can undo multiple times in a row.</p>
+    </div>
+
+    <div class="section">
+      <h2>Photos aren't loading. What should I do?</h2>
+      <p>Confirm photo permissions are set to Full Access in Settings. If it persists, try closing and reopening the app. Still stuck? Reach out below.</p>
+    </div>
+
+    <div class="section">
+      <h2>Does SwipeSweep collect any data?</h2>
+      <p>Zero. No accounts, no analytics, no third-party SDKs. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+    </div>
+
+  </div>
+
+  <div class="contact-card">
+    <h2>Still need help?</h2>
+    <p>Send us a message and we'll get back to you within 1–2 business days.</p>
+    <a href="mailto:support@swipesweep.app" class="email-btn">
+      <svg viewBox="0 0 14 14" fill="none">
+        <rect x="1" y="2.5" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.3"/>
+        <path d="M1 5 L7 8.5 L13 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      Email Support
+    </a>
+  </div>
+
+  <footer>
+    <span>© 2025 SwipeSweep</span>
+    <a href="privacy.html">Privacy Policy</a>
+  </footer>
+
+</body>
+</html>

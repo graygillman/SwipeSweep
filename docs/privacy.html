@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — SwipeSweep</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #111;
+      --card: #1c1c1c;
+      --border: rgba(255,255,255,0.08);
+      --text: #fff;
+      --sub: rgba(255,255,255,0.4);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: up 0.35s ease 0s forwards;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+    }
+
+    .icon-box {
+      width: 30px; height: 30px;
+      background: #fff;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+    }
+
+    .icon-box svg { width: 16px; height: 16px; }
+
+    .nav-name { font-size: 0.9rem; font-weight: 600; color: #fff; }
+
+    .nav-link { font-size: 0.82rem; color: var(--sub); text-decoration: none; transition: color 0.2s; }
+    .nav-link:hover { color: #fff; }
+
+    .header {
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: up 0.35s ease 0.06s forwards;
+    }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 11px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--sub);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .date { font-size: 0.8rem; color: var(--sub); }
+
+    .summary {
+      background: #fff;
+      color: #111;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: up 0.35s ease 0.1s forwards;
+    }
+
+    .summary p {
+      font-size: 0.92rem;
+      font-weight: 500;
+      line-height: 1.6;
+      color: #111;
+    }
+
+    .section {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      opacity: 0;
+      animation: up 0.35s ease both forwards;
+    }
+
+    .section:nth-child(1)  { animation-delay: 0.13s; }
+    .section:nth-child(2)  { animation-delay: 0.16s; }
+    .section:nth-child(3)  { animation-delay: 0.19s; }
+    .section:nth-child(4)  { animation-delay: 0.22s; }
+    .section:nth-child(5)  { animation-delay: 0.25s; }
+    .section:nth-child(6)  { animation-delay: 0.28s; }
+    .section:nth-child(7)  { animation-delay: 0.31s; }
+
+    h2 { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; }
+
+    p {
+      font-size: 0.86rem;
+      color: var(--sub);
+      line-height: 1.7;
+      margin-bottom: 6px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+    p.mt { margin-top: 8px; }
+
+    ul { list-style: none; margin-top: 6px; }
+
+    ul li {
+      font-size: 0.86rem;
+      color: var(--sub);
+      line-height: 1.7;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    ul li::before { content: '·'; position: absolute; left: 4px; }
+
+    a { color: #fff; }
+
+    footer {
+      margin-top: 44px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      opacity: 0;
+      animation: up 0.35s ease 0.34s forwards;
+    }
+
+    footer span, footer a {
+      font-size: 0.78rem;
+      color: var(--sub);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: #fff; }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="icon-box">
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 9.5 L8 4.5 L13 9.5" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 13 L8 8 L13 13" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+        </svg>
+      </div>
+      <span class="nav-name">SwipeSweep</span>
+    </a>
+    <a href="support.html" class="nav-link">Support →</a>
+  </nav>
+
+  <div class="header">
+    <span class="tag">Legal</span>
+    <h1>Privacy Policy</h1>
+    <p class="date">Effective January 1, 2025</p>
+  </div>
+
+  <div class="summary">
+    <p>SwipeSweep doesn't collect, store, or transmit any of your personal data or photos. Everything stays on your device.</p>
+  </div>
+
+  <div class="section">
+    <h2>What we collect</h2>
+    <p>Nothing. No accounts, no analytics, no tracking.</p>
+  </div>
+
+  <div class="section">
+    <h2>Photo library access</h2>
+    <p>SwipeSweep accesses your Photos library only to:</p>
+    <ul>
+      <li>Display photos for your review</li>
+      <li>Move discarded photos to Recently Deleted</li>
+    </ul>
+    <p class="mt">No photos are uploaded, transmitted, or shared.</p>
+  </div>
+
+  <div class="section">
+    <h2>Data storage</h2>
+    <p>All preferences are stored locally using Apple's standard frameworks. We run no servers.</p>
+    <p>Deleting SwipeSweep removes all app data. Your photos stay in Apple Photos unaffected.</p>
+  </div>
+
+  <div class="section">
+    <h2>Third-party services</h2>
+    <p>None. No analytics, advertising networks, or third-party SDKs.</p>
+  </div>
+
+  <div class="section">
+    <h2>Children's privacy</h2>
+    <p>We collect no data from anyone.</p>
+  </div>
+
+  <div class="section">
+    <h2>Changes</h2>
+    <p>If this policy changes materially, we'll update the date above and notify you in-app.</p>
+  </div>
+
+  <div class="section">
+    <h2>Contact</h2>
+    <p>Have questions? Visit our <a href="support.html">Support page</a>.</p>
+  </div>
+
+  <footer>
+    <span>© 2025 SwipeSweep</span>
+    <a href="support.html">Support</a>
+  </footer>
+
+</body>
+</html>
