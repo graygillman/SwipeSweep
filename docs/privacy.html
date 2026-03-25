@@ -42,11 +42,11 @@
     }
 
     .icon-box {
-      width: 30px; height: 30px;
+      width: 30px;
+      height: 30px;
       background: #fff;
       border-radius: 8px;
-      display: grid;
-      place-items: center;
+      overflow: hidden;
     }
 
     .icon-box svg { width: 16px; height: 16px; }
@@ -105,8 +105,6 @@
     .section {
       border-top: 1px solid var(--border);
       padding: 24px 0;
-      opacity: 0;
-      animation: up 0.35s ease both forwards;
     }
 
     .section:nth-child(1)  { animation-delay: 0.13s; }
@@ -172,10 +170,7 @@
   <nav>
     <a href="index.html" class="nav-logo">
       <div class="icon-box">
-        <svg viewBox="0 0 16 16" fill="none">
-          <path d="M3 9.5 L8 4.5 L13 9.5" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M3 13 L8 8 L13 13" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
-        </svg>
+        <img src="https://img.plicklistings.com/swipe-sweeper/SwipeSweeper.png" alt="SwipeSweep logo" />
       </div>
       <span class="nav-name">SwipeSweep</span>
     </a>
