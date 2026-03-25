@@ -310,7 +310,7 @@ struct SettingsView: View {
                     
                     // MARK: - GitHub
                     Button {
-                        if let url = URL(string: "https://github.com") {
+                        if let url = URL(string: "https://github.com/graygillman/SwipeSweep.git") {
                             UIApplication.shared.open(url)
                         }
                     } label: {
