@@ -87,7 +87,29 @@ SwipeSweep/
 
 ## Contributing
 
-Open to PRs. If you find something broken or have an idea, open an issue.
+Contributions are welcome 
+
+If you find a bug, have an idea, or want to improve something, feel free to open an issue or submit a PR.
+
+### Guidelines
+
+- Keep the app **fast, minimal, and native-feeling**
+- **No external dependencies** unless absolutely necessary
+- Avoid unnecessary bloat — simplicity is key
+- Changes should align with the **core idea of the app**
+
+### Recognition
+
+All contributors get a spot in the app 
+
+- You’ll receive a **user placeholder on the final page**
+- To claim it, email your image to:
+  **swipesweep@plicklistings.com**
+- Include your **PR number** in the email
+- I’ll upload it to the CDN and link it to your contribution
+
+---
+
 
 ## License
 
