@@ -1,21 +1,34 @@
 # ── Fastlane secrets ──────────────────────────
 fastlane/metadata/review_information/
 fastlane/Appfile
-# If you use match for code signing
 fastlane/Matchfile
-# Fastlane reports & previews (generated, not source)
+
+# ── Fastlane generated (not source) ───────────
 fastlane/report.xml
 fastlane/Preview.html
+
 # ── Build artifacts ───────────────────────────
 *.ipa
 *.dSYM
 *.dSYM.zip
+
 # ── Xcode user data ───────────────────────────
 xcuserdata/
 *.xcuserstate
 *.xcworkspace/xcuserdata/
+
 # ── Ruby ──────────────────────────────────────
 .bundle/
 vendor/bundle/
+
 # ── macOS ─────────────────────────────────────
 .DS_Store
+
+# ── Secrets ───────────────────────────────────
+.env
+*.p8
+fastlane/fastlane/metadata/review_information/email_address.txt
+fastlane/fastlane/metadata/review_information/first_name.txt
+fastlane/fastlane/metadata/review_information/last_name.txt
+fastlane/fastlane/metadata/review_information/phone_number.txt
+fastlane/Fastfile

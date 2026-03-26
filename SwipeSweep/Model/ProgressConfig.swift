@@ -2,7 +2,7 @@
 //  ProgressConfig.swift
 //  DynamicProgressView
 //
-//  Created by Balaji on 04/10/22.
+//  Created by Gray Gillman on 3/24/26.
 //
 
 import SwiftUI
