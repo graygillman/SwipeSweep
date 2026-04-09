@@ -22,13 +22,13 @@ final class PhotoSwipeViewModel: ObservableObject {
     @Published var allTimeKept: Int = 0
     @Published var allTimeDeleted: Int = 0
     @Published var allTimeSaved: Int64 = 0
-
+    @Published var permissionDenied: Bool = false
+    
     private var assets: PHFetchResult<PHAsset> = PHFetchResult()
     private var index: Int = 0
     private let imageManager = PHCachingImageManager()
     private let stateManager = PhotoStateManager()
     private var actionCount = 0
-    private var bytesPerDeletedPhoto: [String: Int64] = [:]
 
     private var undoStack: [(photo: SwipePhoto, wasDeleted: Bool)] = []
 
@@ -57,8 +57,16 @@ final class PhotoSwipeViewModel: ObservableObject {
 
     private func requestPermissionAndLoad() {
         PHPhotoLibrary.requestAuthorization { status in
-            if status == .authorized || status == .limited {
-                DispatchQueue.main.async { self.loadAssets() }
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized, .limited:
+                    self.loadAssets()
+                case .denied, .restricted:
+                    self.permissionDenied = true
+                    self.isLoading = false
+                default:
+                    self.isLoading = false
+                }
             }
         }
     }
@@ -88,6 +96,14 @@ final class PhotoSwipeViewModel: ObservableObject {
         preloadInitialBatch()
         startTicker()
     }
+    
+    func recheckPermission() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status == .authorized || status == .limited {
+            permissionDenied = false
+            loadAssets()
+        }
+    }
 
     private func preloadInitialBatch(count: Int = 20) {
         isLoading = true
@@ -98,10 +114,17 @@ final class PhotoSwipeViewModel: ObservableObject {
 
     func patchBytes(for id: String, bytes: Int64) {
         guard bytes > 0 else { return }
-        bytesPerDeletedPhoto[id] = bytes
+        stateManager.setBytes(for: id, bytes: bytes)
         bytesSaved += bytes
         allTimeSaved += bytes
         stateManager.saveStats(kept: allTimeKept, deleted: allTimeDeleted, allTimeSaved: allTimeSaved, bytesSaved: bytesSaved)
+    }
+    
+    func syncBytesFromState() {
+        bytesSaved     = stateManager.state.bytesSaved
+        allTimeSaved   = stateManager.state.allTimeSaved
+        allTimeDeleted = stateManager.state.allTimeDeleted
+        allTimeKept    = stateManager.state.allTimeKept
     }
 
     private func loadNext(count: Int) {
@@ -161,8 +184,8 @@ final class PhotoSwipeViewModel: ObservableObject {
 
     func markDeleted(photo: SwipePhoto, bytes: Int64 = 0) {
         stateManager.mark(id: photo.id, deleted: true)
+        stateManager.setBytes(for: photo.id, bytes: bytes)
         undoStack.append((photo: photo, wasDeleted: true))
-        bytesPerDeletedPhoto[photo.id] = bytes
         bytesSaved += bytes
         allTimeDeleted += 1
         allTimeSaved += bytes
@@ -179,7 +202,7 @@ final class PhotoSwipeViewModel: ObservableObject {
         guard let last = undoStack.popLast() else { return nil }
         stateManager.restore(id: last.photo.id)
 
-        if last.wasDeleted, let bytes = bytesPerDeletedPhoto.removeValue(forKey: last.photo.id) {
+        if last.wasDeleted, let bytes = stateManager.removeBytes(for: last.photo.id) {
             bytesSaved = max(0, bytesSaved - bytes)
             allTimeDeleted = max(0, allTimeDeleted - 1)
         } else {
@@ -201,7 +224,6 @@ final class PhotoSwipeViewModel: ObservableObject {
         allTimeDeleted = 0
         allTimeSaved = 0
         bytesSaved = 0
-        bytesPerDeletedPhoto.removeAll()
         undoStack.removeAll()
         stateManager.saveStats(kept: 0, deleted: 0, allTimeSaved: 0, bytesSaved: 0)
         NotificationCenter.default.post(name: .init("RESET_PROGRESS"), object: nil)
@@ -224,7 +246,6 @@ final class PhotoSwipeViewModel: ObservableObject {
         allTimeDeleted = 0
         bytesSaved = 0
         allTimeSaved = 0
-        bytesPerDeletedPhoto.removeAll()
         undoStack.removeAll { $0.wasDeleted }
         stateManager.saveStats(kept: allTimeKept, deleted: 0, allTimeSaved: 0, bytesSaved: 0)
         NotificationCenter.default.post(name: .init("RESET_PROGRESS"), object: nil)
@@ -235,9 +256,9 @@ final class PhotoSwipeViewModel: ObservableObject {
 
     func didRestoreFromDeletedView(ids: [String]) {
         for id in ids {
-            if let bytes = bytesPerDeletedPhoto.removeValue(forKey: id) {
-                bytesSaved    = max(0, bytesSaved - bytes)
-                allTimeSaved  = max(0, allTimeSaved - bytes)
+            if let bytes = stateManager.removeBytes(for: id) {
+                bytesSaved   = max(0, bytesSaved - bytes)
+                allTimeSaved = max(0, allTimeSaved - bytes)
             }
             allTimeDeleted = max(0, allTimeDeleted - 1)
         }
@@ -248,6 +269,7 @@ final class PhotoSwipeViewModel: ObservableObject {
             allTimeSaved: allTimeSaved,
             bytesSaved: bytesSaved
         )
+        syncBytesFromState()
     }
 
     // MARK: - After action

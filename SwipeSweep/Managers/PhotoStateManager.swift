@@ -18,6 +18,14 @@ final class PhotoStateManager {
         load()
     }
 
+    func setBytes(for id: String, bytes: Int64) {
+        state.bytesPerPhoto[id] = bytes
+    }
+
+    func removeBytes(for id: String) -> Int64? {
+        state.bytesPerPhoto.removeValue(forKey: id)
+    }
+    
     func mark(id: String, deleted: Bool) {
         state.photos[id] = deleted
     }

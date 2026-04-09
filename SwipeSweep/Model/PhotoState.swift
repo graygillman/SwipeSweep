@@ -13,4 +13,5 @@ struct PhotoState: Codable, Sendable {
     var allTimeDeleted: Int = 0
     var allTimeSaved: Int64 = 0
     var bytesSaved: Int64 = 0
+    var bytesPerPhoto: [String: Int64] = [:]
 }

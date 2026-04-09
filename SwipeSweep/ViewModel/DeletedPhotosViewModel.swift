@@ -18,9 +18,10 @@ final class DeletedPhotosViewModel: ObservableObject {
     var onDeleted: (([String]) -> Void)?
     private var sortOrderObserver: AnyCancellable?
 
-    init(stateManager: PhotoStateManager, onRestored: (([String]) -> Void)? = nil) {
+    init(stateManager: PhotoStateManager, onRestored: (([String]) -> Void)? = nil, onDeleted: (([String]) -> Void)? = nil) {
         self.stateManager = stateManager
         self.onRestored = onRestored
+        self.onDeleted = onDeleted
         loadDeletedAssets()
 
         sortOrderObserver = UserDefaults.standard
@@ -68,7 +69,6 @@ final class DeletedPhotosViewModel: ObservableObject {
             if success {
                 DispatchQueue.main.async {
                     self.stateManager.clearDeleted()
-                    // Zero out bytes since the photos are now permanently gone
                     self.stateManager.saveStats(
                         kept: self.stateManager.state.allTimeKept,
                         deleted: 0,
@@ -76,6 +76,7 @@ final class DeletedPhotosViewModel: ObservableObject {
                         bytesSaved: 0
                     )
                     self.assets.removeAll()
+                    self.onDeleted?([] ) // notify VM
                 }
             }
         }

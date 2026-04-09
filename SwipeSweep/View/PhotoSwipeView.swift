@@ -9,6 +9,8 @@ import SwiftUI
 import Photos
 
 struct PhotoSwipeView: View {
+    @Environment(\.scenePhase) private var scenePhase
+
     @StateObject private var vm = PhotoSwipeViewModel()
     @StateObject private var progressBar: DynamicProgress = .init()
 
@@ -21,7 +23,6 @@ struct PhotoSwipeView: View {
     @State private var lastMilestoneFired: Int = 0
     @State private var grandMilestonePending: Bool = false
     @State private var leftHeight: CGFloat = 0
-    
     private let milestoneInterval = 100
     private let grandMilestone    = 500
 
@@ -157,7 +158,29 @@ struct PhotoSwipeView: View {
 
             // MARK: - Card Stack
             ZStack {
-                if vm.isLoading {
+                if vm.permissionDenied {
+                    VStack(spacing: 16) {
+                        Image(systemName: "photo.slash")
+                            .font(.system(size: 52))
+                            .foregroundColor(.secondary)
+
+                        Text("Photo Access Required")
+                            .font(.title2).bold()
+
+                        Text("SwipeSweep needs access to your photo library. Please enable it in Settings.")
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal)
+
+                        Button("Open Settings") {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url)
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding()
+                } else if vm.isLoading {
                     ProgressView()
                 } else if vm.displayingPhotos.isEmpty {
                     Text("Done 🎉")
@@ -239,13 +262,23 @@ struct PhotoSwipeView: View {
             lastMilestoneFired = 0
             grandMilestonePending = false
         }
-        .sheet(isPresented: $showDeleted) {
+        .onChange(of: scenePhase) { phase in
+            if phase == .active && vm.permissionDenied {
+                vm.recheckPermission()
+            }
+        }
+        .sheet(isPresented: $showDeleted, onDismiss: {
+            vm.syncBytesFromState()
+        }) {
             NavigationView {
                 DeletedPhotosView(
                     vm: DeletedPhotosViewModel(
                         stateManager: vm.stateManagerPublic,
                         onRestored: { [weak vm] ids in
                             vm?.didRestoreFromDeletedView(ids: ids)
+                        },
+                        onDeleted: { [weak vm] _ in
+                            vm?.syncBytesFromState()
                         }
                     ),
                     onRestored: {

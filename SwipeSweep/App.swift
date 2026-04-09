@@ -15,3 +15,7 @@ struct SwipeSweepApp: App {
         }
     }
 }
+
+#Preview {
+    ContentView()
+}
