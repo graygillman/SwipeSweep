@@ -1,6 +1,6 @@
 # SwipeSweep 🧹
 
-> A fully native, open source iOS photo cleaner — built in 24 hours because everything else looks like garbage and im not paying $9.99 a month...
+> A fully native, open source iOS photo cleaner — built in 24 hours on a 6 pack of voodoo rangers because everything else looks like garbage and im not paying $9.99 a month for a ui feature...
 
 <div align="center">
 
